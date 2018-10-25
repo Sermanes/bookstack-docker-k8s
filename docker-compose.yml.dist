@@ -6,7 +6,8 @@ services:
     ports: 
       - "3306:3306"
     image: mysql:5.7
-    volumes: ./data/mysql:/var/lib/mysql
+    volumes: 
+      - ./data/mysql:/var/lib/mysql
     environment: 
       MYSQL_ROOT_PASSWORD: "ROOT_PASSWORD"
       MYSQL_USER: "MYSQL_USER"
@@ -18,6 +19,7 @@ services:
       - "80:80"
     image: solidnerd/bookstack:latest
     environment: 
+      # If we write mysql, automatically docker places ip of mysql. 
       DB_HOST: "mysql"
       DB_DATABASE: "bookstack"
       DB_USERNAME: "MYSQL_USER"
