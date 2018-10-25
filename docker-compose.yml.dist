@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: mysql
+    ports: 
+      - "3306:3306"
+    image: mysql:5.7
+    volumes: ./data/mysql:/var/lib/mysql
+    environment: 
+      MYSQL_ROOT_PASSWORD: "ROOT_PASSWORD"
+      MYSQL_USER: "MYSQL_USER"
+      MYSQL_PASS: "MYSQL_PASS"
+      MYSQL_DATABASE: "bookstack"
+  bookstack:
+    container_name: bookstack
+    ports: 
+      - "80:80"
+    image: solidnerd/bookstack:latest
+    environment: 
+      DB_HOST: "mysql"
+      DB_DATABASE: "bookstack"
+      DB_USERNAME: "MYSQL_USER"
+      DB_PASSWORD: "MYSQL_PASS"
+    volumes:
+      - ./data/uploads:/var/www/bookstack/public/uploads
+      - ./data/storage:/var/www/bookstack/public/storage
+    depends_on: 
+      - mysql
