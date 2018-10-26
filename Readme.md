@@ -14,6 +14,30 @@ type: LoadBalancer
 loadBalancerIP: xx.xx.xx.xx
 ```
 
+#### Volumes
+Since mysql 5.7 if u mount a persistence volume in /var/lib/mysql, mysql return you an error, you must added to mysql deployment just the next argument:
+
+```
+args:
+  - "--ignore-db-dir=lost+found"
+```
+
+Mysql Volume:
+```
+volumeMounts:
+    - mountPath: /var/lib/mysql
+    name: mysql-data
+```
+
+Bookstack Volumes:
+```
+volumeMounts:
+    - mountPath: /var/www/bookstack/public/uploads
+    name: bookstack-uploads
+    - mountPath: /var/www/bookstack/public/storage
+    name: bookstack-storage
+```
+
 ## Bookstack using docker-compose
 
 You can change the routes of volumes, ports and environment variables as you wish.
