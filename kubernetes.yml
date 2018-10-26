@@ -23,7 +23,7 @@ spec:
       - env:
         - name: MYSQL_DATABASE
           value: bookstack
-        - name: MYSQL_PASS
+        - name: MYSQL_PASSWORD
           value: pass
         - name: MYSQL_ROOT_PASSWORD
           value: root
@@ -33,7 +33,6 @@ spec:
         name: mysql
         ports:
         - containerPort: 3306
-      restartPolicy: Always
 ---
 apiVersion: v1
 kind: Service
@@ -86,9 +85,9 @@ spec:
         - name: DB_HOST
           value: mysql
         - name: DB_PASSWORD
-          value: root
+          value: pass
         - name: DB_USERNAME
-          value: root
+          value: user
         image: solidnerd/bookstack:latest
         name: bookstack
         ports:
@@ -100,24 +99,14 @@ kind: Service
 metadata:
   labels:
     app: bookstack
-  name: bookstack-svc
+  name: bookstack
   namespace: bookstack
 spec:
-  type: NodePort
+  type: LoadBalancer 
   ports:
-  - name: http-port
+  - name: http
     port: 80
     protocol: TCP
     targetPort: 80
   selector:
     app: bookstack
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: http
-  namespace: bookstack
-spec:
-  backend:
-    serviceName: bookstack-svc
-    servicePort: http-port
