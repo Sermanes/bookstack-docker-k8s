@@ -6,6 +6,7 @@
 First step is to set environment variables. You can use secrets if you prefer. I recommend it.
 
 If you have more than one service you can use an ingress.
+You have available the configuration in the branch with-ingress.
 
 You can set an external static IP in bookstack service with the next parameter:
 

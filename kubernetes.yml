@@ -90,6 +90,20 @@ spec:
           value: user
         image: solidnerd/bookstack:latest
         name: bookstack
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /login
+            port: 80
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          periodSeconds: 15
         ports:
         - name: http
           containerPort: 80
