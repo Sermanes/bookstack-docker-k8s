@@ -90,6 +90,20 @@ spec:
           value: user
         image: solidnerd/bookstack:latest
         name: bookstack
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 80
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /login
+            port: 80
+          initialDelaySeconds: 15
+          timeoutSeconds: 1
+          periodSeconds: 15
         ports:
         - name: http
           containerPort: 80
@@ -102,7 +116,7 @@ metadata:
   name: bookstack
   namespace: bookstack
 spec:
-  type: LoadBalancer 
+  type: NodePort
   ports:
   - name: http
     port: 80
@@ -110,3 +124,13 @@ spec:
     targetPort: 80
   selector:
     app: bookstack
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: bookstack
+  namespace: bookstack
+spec:
+  backend:
+    serviceName: bookstack
+    servicePort: 80

@@ -5,13 +5,22 @@
 
 First step is to set environment variables. You can use secrets if you prefer. I recommend it.
 
-If you have more than one service you can use an ingress.
 
-You can set an external static IP in bookstack service with the next parameter:
+You can set an external static IP if you want.
+
+#### GCloud ingress
+
+First, We must reserve an ip.
 
 ```
-type: LoadBalancer
-loadBalancerIP: xx.xx.xx.xx
+$ gcloud compute addresses create web-static-ip --global
+```
+
+Now, added the next annotation inside ingress yaml:
+
+```
+annotations:
+    kubernetes.io/ingress.global-static-ip-name: web-static-ip
 ```
 
 #### Volumes
