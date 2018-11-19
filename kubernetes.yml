@@ -103,6 +103,7 @@ spec:
         - name: MAIL_FROM
           value: no-reply@test.com
         - name: APP_URL
+          value: http://wwww.test.com
         image: solidnerd/bookstack:latest
         name: bookstack
         readinessProbe:
