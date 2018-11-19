@@ -88,6 +88,22 @@ spec:
           value: pass
         - name: DB_USERNAME
           value: user
+        - name: MAIL_USERNAME
+          value: example@test.com
+        - name: MAIL_PASSWORD 
+          value: mailpass
+        - name: MAIL_HOST
+          value: smtp.server.com
+        - name: MAIL_PORT
+          value: '465'
+        - name: MAIL_ENCRYPTION
+          value: SSL
+        - name: MAIL_DRIVER
+          value: smtp
+        - name: MAIL_FROM
+          value: no-reply@test.com
+        - name: APP_URL
+          value: http://wwww.test.com
         image: solidnerd/bookstack:latest
         name: bookstack
         readinessProbe:
